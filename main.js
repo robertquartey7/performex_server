@@ -5,6 +5,10 @@ import mongoose from "mongoose";
 import setupJWTStrategy from "./auth/index.js";
 import passport from "passport";
 import cors from "cors";
+import morgan from "morgan";
+import authRoutes from './routes/authentication.js'
+import userRoutes from './routes/user.js'
+import { environment } from "./libs/environmentConfig.js";
 export const app = express();
 
 app.use(express.json());
@@ -18,7 +22,7 @@ app.use(
 
 /* MONGOOSE SETUP && CONNECTING TO MONGODB DATABASE*/
 mongoose
-  .connect(process.env.MONGODB_URL, {
+  .connect(environment.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -34,9 +38,9 @@ mongoose
 setupJWTStrategy(passport);
 
 // API ROUTES
-app.use("/api", morgan("tiny"));
-app.use("/api", authRoutes);
-app.use("/api", userRoutes);
+app.use(environment.API_URL, morgan("tiny"));
+app.use(environment.API_URL, authRoutes);
+app.use(environment.API_URL, userRoutes);
 
 
 
