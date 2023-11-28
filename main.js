@@ -44,6 +44,6 @@ app.use(environment.API_URL, userRoutes);
 
 
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
+})
