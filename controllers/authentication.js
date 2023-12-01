@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 /* Sign up new users */
 export const register = async (req, res) => {
-  
   try {
     const { email, password } = req.body;
     const salt = bcrypt.genSaltSync(10);
@@ -73,6 +72,7 @@ export const login = async (req, res) => {
 
         res.status(200).json({
           accessToken: token,
+          id: user._id,
         });
       } else {
         res.status().json({
